@@ -1,9 +1,10 @@
 import React from "react";
-import { Stack, Box} from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import VideoCard from "./VideoCard";
 import ChannelCard from "./ChannelCard";
+import VideoCardWatch from "./VideoCardWatch";
 
-const Videos = ({ videos, direction }) => {
+const Videos = ({ videos, direction, type }) => {
   if (!videos?.length) return "Loading...";
   return (
     <Stack
@@ -14,8 +15,11 @@ const Videos = ({ videos, direction }) => {
     >
       {videos.map((item, index) => (
         <Box key={index}>
-          {item.id.videoId && <VideoCard video={item}/>}
-          {item.id.channelId && <ChannelCard channelDetail={item}/>}
+          {type && type === "profile" ? (
+            <VideoCardWatch video={item} />
+          ) : (
+            <VideoCard video={item} />
+          )}
         </Box>
       ))}
     </Stack>

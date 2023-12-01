@@ -23,7 +23,7 @@ const Feed = () => {
     {isLoader ? (
           <div className="row justify-content-center" sx={{ height: {sx: "auto" , md: "92vh"}}}>
             <div className="col-md-12 loader-cart">
-              <Box sx={{ display: "flex" }} justifyContent="center" marginTop="350px" marginLeft="950px" sx={{ height: {sx: "auto" , md: "92vh"}, borderRight: "1px solid #3d3d3d"}}>
+              <Box justifyContent="center" marginTop="350px" marginLeft="950px" sx={{ display: "flex", height: {sx: "auto" , md: "92vh"}, borderRight: "1px solid #3d3d3d"}}>
                 <CircularProgress style={{ color: "red" }} />
               </Box>
             </div>
@@ -33,7 +33,7 @@ const Feed = () => {
      <Box sx={{ height: {sx: "auto" , md: "92vh"}, borderRight: "1px solid #3d3d3d", px: {sx: 0, md: 2}}}>
       <Sidebar selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}/>
       <Typography className="copyright" variant="body2" sx={{ mt: 1.5, color: "#fff"}}>
-        Copyright 2022
+        Copyright 2023
       </Typography>
      </Box>
      <Box p={2} sx={{overflowY: "auto" , height: "90vh", flex: 2}}>

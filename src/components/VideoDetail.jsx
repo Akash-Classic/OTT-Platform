@@ -2,13 +2,16 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import ReactPlayer from "react-player";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Typography, Box, Stack } from "@mui/material";
 import { CheckCircle } from "@mui/icons-material";
 import Videos from "./Videos";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 
 const VideoDetail = () => {
+  const { isAuthenticated } = useAuth0();
   const [videoDetail, setVideoDetail] = useState(null);
+  const [watchHistory, setWatchHistory] = useState([]);
   const [videos, setVideos] = useState(null);
   const { id } = useParams();
   useEffect(() => {
@@ -18,10 +21,21 @@ const VideoDetail = () => {
     fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`).then(
       (data) => setVideos(data.items)
     );
+    if (videoDetail) {
+      if (isAuthenticated) {
+        const data1 = [...watchHistory, videoDetail];
+        setWatchHistory(data1);
+        localStorage.setItem("Watch_History", JSON.stringify(data1));
+      }
+    }
   }, [id]);
 
+  useEffect(() => {
+    setWatchHistory(JSON.parse(localStorage.getItem("Watch_History")) || []);
+  }, []);
+
   if (!videoDetail?.snippet) return "Loading...";
-  
+
   const {
     snippet: { title, channelId, channelTitle },
     statistics: { viewCount, likeCount },
